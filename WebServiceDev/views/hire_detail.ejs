@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('./partials/head.ejs') %>
+    <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=p6sep0nwkr&submodules=geocoder"></script>
+</head>
+<body>
+    <%- include('./partials/nav.ejs') %>
+    <div id="tab-btn">
+        <ul>
+            <li id="nav_tab1" class="nav_tablinks active" aria-selected="true"><a href="/">채용 정보</a></li>
+            <li id="nav_tab2" class="nav_tablinks" aria-selected="false"><a href="/masters">마스터 정보</a></li>
+            <li id="nav_tab3" class="nav_tablinks" aria-selected="false"><a href="/profile">프로필</a></li>
+        </ul>
+    </div>
+    
+    <div id="tab-cont">
+        <div id="nav_tabCont1" class="nav_tabCont">
+            <input type="hidden" name="idx" value="<%=row.idx%>"/>
+            <div id="detail-info">
+                <div id="intro-info">
+                    <h5 class="profile_profileTitle" style="margin-top: 10px;"><%=row.companyName%></h5>
+                      <hr>
+                      <h6 class="profile_profileContent" style="margin-top: 20px">회사메일: <%=row.email%></h6>
+                      <h6 class="profile_profileContent">연락처: <%=row.calling%></h6>
+                      <h6 class="profile_profileContent" style="margin-bottom: 20px">주소: <%=row.address%></h6>
+                      <div id="map" style="width:100%;height:400px;"></div>
+                    <div class="text-end" id="link">
+                        <i class="material-icons" style="font-size: 24px; color: #6ABABB;">phone</i>
+                        <!-- <a href="#"><img src="https://img.icons8.com/android/24/000000/home.png"/></a> -->
+                    </div>
+                </div>
+                <div id="application-guidelines">
+                    <div class="table-responsive">
+                        <table class="table caption-top">
+                            <h5 class="profile_profileTitle" style="margin-top: 30px;">모집 요강</h5>
+                            <hr>
+                            <thead>	
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th scope="row" width="40%">직종 구분</th>
+                                    <td width = "60%"><%=row.occupation%></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">고용형태/기간</th>
+                                    <td ><%=row.term%></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">업무내용</th>
+                                    <td ><%=row.task%></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">면허/자격</th>
+                                    <td ><%=row.license%></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">근무지</th>
+                                    <td ><%=row.state%></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">급여</th>
+                                    <td >월 <%=row.salary%>만원
+                                </tr>
+                                <tr>
+                                    <th scope="row">근무 시간</th>
+                                    <td ><%=row.worktimeStart%>~<%=row.worktimeEnd%></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">보험</th>
+                                    <td ><%=row.insurance%></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">기타</th>
+                                    <td ></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="accordion" id="accordionExample">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingOne">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"><strong>세부내용</strong></button>
+                            </h2>
+                            <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    <p><%=row.detailInfo%></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="buttons" style="margin: 20px 0;">
+                    <button id="main_recommendCardButton" onclick="location.href='/'" class="btn btn-primary" style="width: 45%; display: inline-block; margin-right: 3%; margin-bottom: 15px;">돌아가기</a>
+                    <button id="main_recommendCardButton" onclick="location.href='/'" class="btn btn-primary" style="width: 45%; display: inline-block;  margin-right: 3%; margin-bottom: 15px;">접수하기</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+var map = new naver.maps.Map("map", {
+  center: new naver.maps.LatLng(37.3595316, 127.1052133),
+  zoom: 15,
+  mapTypeControl: true
+});
+
+var infoWindow = new naver.maps.InfoWindow({
+  anchorSkew: true
+});
+
+map.setCursor('pointer');
+
+function searchCoordinateToAddress(latlng) {
+
+  infoWindow.close();
+
+  naver.maps.Service.reverseGeocode({
+    coords: latlng,
+    orders: [
+      naver.maps.Service.OrderType.ADDR,
+      naver.maps.Service.OrderType.ROAD_ADDR
+    ].join(',')
+  }, function(status, response) {
+    if (status === naver.maps.Service.Status.ERROR) {
+      if (!latlng) {
+        return alert('ReverseGeocode Error, Please check latlng');
+      }
+      if (latlng.toString) {
+        return alert('ReverseGeocode Error, latlng:' + latlng.toString());
+      }
+      if (latlng.x && latlng.y) {
+        return alert('ReverseGeocode Error, x:' + latlng.x + ', y:' + latlng.y);
+      }
+      return alert('ReverseGeocode Error, Please check latlng');
+    }
+
+    var address = response.v2.address,
+        htmlAddresses = [];
+
+    if (address.jibunAddress !== '') {
+        htmlAddresses.push('[지번 주소] ' + address.jibunAddress);
+    }
+
+    if (address.roadAddress !== '') {
+        htmlAddresses.push('[도로명 주소] ' + address.roadAddress);
+    }
+
+    infoWindow.setContent([
+      '<div style="padding:10px;min-width:200px;line-height:150%;">',
+      '<h4 style="margin-top:5px;">검색 좌표</h4><br />',
+      htmlAddresses.join('<br />'),
+      '</div>'
+    ].join('\n'));
+
+    infoWindow.open(map, latlng);
+  });
+}
+
+function searchAddressToCoordinate(address) {
+  naver.maps.Service.geocode({
+    query: address
+  }, function(status, response) {
+    if (status === naver.maps.Service.Status.ERROR) {
+      if (!address) {
+        return alert('Geocode Error, Please check address');
+      }
+      return alert('Geocode Error, address:' + address);
+    }
+
+    if (response.v2.meta.totalCount === 0) {
+      return alert('No result.');
+    }
+
+
+    var  item = response.v2.addresses[0],
+      point = new naver.maps.Point(item.x, item.y);
+
+    infoWindow.setContent([
+      '<div style="padding:10px;min-width:50px;">',
+      '<p style="margin-top:5px;">'+ address +'</p>',
+      '</div>'
+    ].join('\n'));
+
+    map.setCenter(point);
+    infoWindow.open(map, point);
+  });
+}
+
+function initGeocoder() {
+  if (!map.isStyleMapReady) {
+    return;
+  }
+
+  map.addListener('click', function(e) {
+    searchCoordinateToAddress(e.coord);
+  });
+
+  $('#address').on('keydown', function(e) {
+    var keyCode = e.which;
+
+    if (keyCode === 13) { // Enter Key
+      searchAddressToCoordinate($('#address').val());
+    }
+  });
+
+  $('#submit').on('click', function(e) {
+    e.preventDefault();
+
+    searchAddressToCoordinate($('#address').val());
+  });
+
+  searchAddressToCoordinate('<%=row.address%>');
+}
+
+naver.maps.onJSContentLoaded = initGeocoder;
+naver.maps.Event.once(map, 'init_stylemap', initGeocoder);
+</script>
+</html>

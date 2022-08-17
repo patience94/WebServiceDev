@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('./partials/head.ejs') %>
+</head>
+<body>
+    <%- include('./partials/nav.ejs') %>
+    <%- include('./partials/tab-btn.ejs') %>
+    
+    <div id="tab-cont">
+        <div id="nav_tabCont1" class="nav_tabCont">
+            <form id="main_searchForm">
+                <div style="width: 100%;">
+                    <div class="searchLabel">
+                        <h5>근무지</h5>
+                    </div>
+                    <div class="main_searchBox">
+                        <select class="form-select" id="state" aria-label="Default select example" name ="state">
+                            <option value="*">선택해주세요</option>
+							<option value="서울">서울</option>
+							<option value="경기">경기</option>
+							<option value="인천">인천</option>
+							<option value="부산">부산</option>
+							<option value="대구">대구</option>
+							<option value="광주">광주</option>
+							<option value="대전">대전</option>
+							<option value="울산">울산</option>
+							<option value="세종">세종</option>
+							<option value="강원">강원</option>
+							<option value="경남">경남</option>
+							<option value="경북">경북</option>
+							<option value="전남">전남</option>
+							<option value="전북">전북</option>
+							<option value="충남">충남</option>
+							<option value="충북">충북</option>
+							<option value="제주">제주</option>
+                        </select>
+                    </div>
+                </div>
+                <div style="margin-top: 30px;">
+                    <div class="main_searchLabel">
+                        <h5>직종</h5>
+                    </div>
+                    <div class="main_searchBox">
+                        <select class="form-select" id="occupation" aria-label="Default select example" name="occupation">
+                            <option value="*">선택해주세요</option>
+							<option value="경영/사무">경영/사무</option>
+							<option value="영업/고객상담">영업/고객상담</option>
+							<option value="IT/인터넷">IT/인터넷</option>
+							<option value="디자인">디자인</option>
+							<option value="서비스">서비스</option>
+							<option value="전문직">전문직</option>
+							<option value="의료">의료</option>
+							<option value="생산/제조">생산/제조</option>
+							<option value="건설">건설</option>
+							<option value="유통/무역">유통/무역</option>
+							<option value="미디어">미디어</option>
+							<option value="교육">교육</option>
+							<option value="특수계층/공공">특수계층/공공</option>
+							<option value="기타">기타</option>
+                        </select>
+                    </div>
+                </div>
+                <div style="margin-top: 30px;">
+                    <div class="searchLabel">
+                        <h5>키워드</h5>
+                    </div>
+                    <div class="main_searchBox">
+                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    </div>
+                </div>
+                <button id="main_searchButton" class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+            <div class="mb-2" id="recommend">
+                <h5 style="font-weight: bold; display: inline-block; width: 50%; margin-right: 0%; margin-top: 0px">채용정보 추천</h4>
+                <button style="width: 48%; border-radius: 100px; float: none; font-size: 17px; color: #6ABABB; margin: 0; background-color: white; border: white;" id="main_recommendCardButton" onclick="location.href='/hire_detail_form' " class="btn btn-primary"><u>채용공고 올리기</u></a>
+            </div>
+        </div>
+        <div id="searchResults">
+            <% if (rows.length > 0) { %>
+                <% rows.forEach(data => { %>
+                    <div id="main_recommendCard" class="card my-4" style="border-color:#D0D0D0; border-width: 2px;">
+                        <div class="card-header">
+                            <h5 class="pt-1 float-start"><%=data.companyName%></h5>                        
+                        </div>
+                        <div class="card-body">
+                            <h4 id="main_recommendCardTitle" class="card-title"><%=data.businessType%></h4>
+                                <div id="main_recommendCardContent">
+                                    <h6 class="main_recommendCardContent"><h6 style="color: #666; display: inline">주소: </h6><%=data.address%></h6>
+                                    <h6 class="main_recommendCardContent"><h6 style="color: #666; display: inline">직종: </h6><%=data.occupation%></h6>
+                                    <h6 class="main_recommendCardContent"><h6 style="color: #666; display: inline">급여: </h6>월 <%=data.salary%> 원</h6>
+                                </div>
+                            <h6 id="main_recommendCardMsg"> <%=data.task%></h6>
+                            <button type="submit" id="main_recommendCardButton" class="btn btn-primary" style="width: 100%;"><a href="/hire_detail/<%=data.id%>">자세히 보기</a></button>
+                        </div>
+                    </div>
+                <% }) %>
+            <% } else { %>
+                <h3> 현재 등록된 자료가 없습니다. </h3>
+            <% }%>
+        </div>
+    </div>
+    <script>
+        $('#main_searchForm').submit(function (e) {
+            e.preventDefault();
+            
+            var state = $('#state').val();
+            var occupation = $('#occupation').val();
+
+            $.ajax({
+                url: '/search',
+                data: JSON.stringify({"state": state, "occupation":occupation}),
+                type: "POST",
+                contentType: "application/json",
+                success: function(data) {
+                    if (data.result == "success") {
+                        $('#searchResults').empty();
+                        if (data.rows.length > 0) {
+                            data.rows.forEach(row => {
+                                $('#recommend').css('visibility', 'invisible');
+                                $('#searchResults').append('<div id="main_recommendCard" class="card my-4" style="border-color:#D0D0D0; border-width: 2px;">');
+                                $('#searchResults').append('<div class="card-header">');
+                                $('#searchResults').append('<h5 class="pt-1 float-start">'+row.companyName+'</h5><br>');
+                                $('#searchResults').append('</div>');
+                                $('#searchResults').append('<div class="card-body">');
+                                $('#searchResults').append('<h4 id="main_recommendCardTitle" class="card-title">'+row.businessType+'</h4>');
+                                $('#searchResults').append('<div id="main_recommendCardContent">');
+                                $('#searchResults').append('<h6 class="main_recommendCardContent"><h6 style="color: #666; display: inline">주소: </h6>'+row.address+'</h6>');
+                                $('#searchResults').append('<h6 class="main_recommendCardContent"><h6 style="color: #666; display: inline">직종: </h6>'+row.occupation+'</h6>');
+                                $('#searchResults').append('<h6 class="main_recommendCardContent"><h6 style="color: #666; display: inline">급여: </h6>'+row.salary+'</h6>');
+                                $('#searchResults').append('</div>');
+                                $('#searchResults').append('<br><h6 id="main_recommendCardMsg">'+row.task+'</h6>');
+                                $('#searchResults').append('<button type="submit" id="main_recommendCardButton" class="btn btn-primary" style="width: 100%;"><a href="/hire_detail/<'+row.id+'">자세히 보기</a></button>');
+                                $('#searchResults').append('</div>');
+                                $('#searchResults').append('</div>');
+                            })
+                        } else {
+                            $('#searchResults').append('<br><h3> 검색 결과가 없습니다. </h3>');
+                        }
+                    }
+                }
+            });
+        })
+    </script>
+</body>
+
+</html>

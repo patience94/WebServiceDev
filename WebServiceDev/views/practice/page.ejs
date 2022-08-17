@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <%- include('./partials/head.ejs') %>
+</head>
+<body>
+    <form id="fileSelectionForm">
+        <!--<label for="fileSlectionForm" class="form-label">사진</label>-->
+        <!--<input class="form-control" type="file" id="$fileSelection" name="uploaded_image">-->
+        <input id = "fileSelection" type="file"><br>
+        <button>upload</button>
+    </form>
+    
+    <img src="" id="showImage">
+
+    <script>
+        $('#fileSelectionForm').submit(function (event) {
+            event.preventDefault();
+            file = $('$fileSelection')[0].files[0];
+
+            var reader = new FileReader();
+            reader.readAsDataURL(file);
+
+            var imgString = "";
+            reader.onloadend = function () {
+                imgString = reader.result;
+                console.log(imgString);
+
+                $.ajax({
+                    method: "POST",
+                    url: '/test',
+                    data: {img: imgString},
+                    dataType: "application/json",
+                    success: function(data) {
+                        imgString = data.img;
+                        console.log(data);
+                        console.log(imgString);
+                        $('#showImage').attr('src', imgString);
+                        $('#showImage').css('visibility', 'visible');
+                        $('#showImage').css('width', '200px');
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

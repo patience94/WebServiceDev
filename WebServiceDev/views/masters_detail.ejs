@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('./partials/head.ejs') %>
+</head>
+<body>
+    <%- include('./partials/nav.ejs') %>
+    <div id="tab-btn">
+        <ul>
+            <li id="nav_tab1" class="nav_tablinks" aria-selected="false"><a href="/">채용 정보</a></li>
+            <li id="nav_tab2" class="nav_tablinks active" aria-selected="true"><a href="/masters">마스터 정보</a></li>
+            <li id="nav_tab3" class="nav_tablinks" aria-selected="false"><a href="/profile">프로필</a></li>
+        </ul>
+    </div>
+    
+    <div id="tab-cont">
+        <div id="nav_tabCont1" class="nav_tabCont">
+            <div class = "row mt-5" id="profile" style="margin-top: 0;">
+                <div style="text-align: center;">
+                    <img src="<%=row.img%>" style="width: 200px; border-radius: 10%;">
+                </div>
+                <div style="text-align: center; margin-top: 20px;"> 
+                    <h5> <%=row.name%> 마스터 </h5>
+                </div>
+            </div>
+            <div id="marter-info" class="mt-5 pt-2">
+                <h5 class="profile_profileTitle" style="margin-top: 0;">마스터 정보</h5>
+                <hr>
+                <div class="table-responsive" style="margin-top: 10px;">
+                    <table class="table caption-top">
+                        <thead>	
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row" width="30%" style="margin: 20px 0;">전문 분야</th>
+                                <td width = "70%"><%=row.masterField%></td>
+                            </tr>
+                            <tr>
+                                <th scope="row" style="margin: 20px 0;">경력</th>
+                                <td> <%=row.careerStart%> ~ <%=row.careerEnd%> </td>
+                            </tr>
+                            <tr>
+                                <th scope="row" style="margin: 20px 0;">시급</th>
+                                <td> <%=row.hourlyWage%> 원</td>
+                            </tr>
+                            <tr>
+                                <th scope="row" style="margin: 20px 0;">자문비용</th>
+                                <td> <%=row.advisoryFee%> 원</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div id="domain-intro" class="mt-5 pt-2">
+                <h5 class="profile_profileTitle" style="margin-top: 0;">마스터 자기소개</h5>
+                <hr>
+                <div id="domain-content">
+                    <p><%=row.introduction%></p>
+                </div>
+            </div>
+            <div id="career-intro" class="mt-5 pt-2">
+                <h5 class="profile_profileTitle" style="margin-top: 0;">마스터 경력소개</h5>
+                <hr>
+                <div id="career-content">
+                    <p> <%=row.careerIntroduction%> </p>
+                </div>
+            </div>
+            <div id="buttons" style="margin: 40px 0;">
+                <button id="main_recommendCardButton" onclick="location.href='#'" class="btn btn-primary" style="width: 45%; display: inline-block; margin-left: 5%; margin-bottom: 40px;">의뢰하기</a>
+                <button id="main_recommendCardButton" onclick="location.href='/masters'" class="btn btn-primary" style="width: 45%; display: inline-block;  margin-right: 5%; margin-bottom: 40px;">돌아가기</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

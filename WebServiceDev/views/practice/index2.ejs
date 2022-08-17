@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <%- include('./partials/head.ejs') %>
+</head>
+<body>
+    <form id="fileSelectionForm">
+        <!--<label for="fileSlectionForm" class="form-label">사진</label>-->
+        <!--<input class="form-control" type="file" id="fileSelection" name="uploaded_image">-->
+        <input id="fileSelection" type="file"><br>
+        <button>upload</button>
+    </form>
+    
+    <img src="" id="showImage">
+    <!--<table id="imgShow"></table>-->
+    <script>
+        $('#fileSelectionForm').submit(function (event) {
+            console.log('chk1');
+            event.preventDefault();
+            var file = $('#fileSelection')[0].files[0];
+            console.log('chk2');
+            var reader = new FileReader();
+            reader.readAsDataURL(file);
+            console.log('chk3');
+            var imgString = "";
+            reader.onloadend = function () {
+                console.log('chk3');
+                imgString = reader.result;
+                console.log('chk4');
+                $.ajax({
+                    url: '/test',
+                    data: JSON.stringify({"img": imgString}),
+                    type: "POST",
+                    contentType: "application/json",
+                    success: function(data) {
+                        console.log('receive');
+                        imgString = data.img;
+                        $('#showImage').attr('src', imgString);
+                        //$('#showImage').css('visibility', 'visible');
+                        $('#showImage').css('width', '200px');
+                    }
+                });
+            }
+        });
+    </script>
+    <!--advanced-->
+    <!--<script>
+        $('#fileSelectionForm').submit(function (event) {
+            event.preventDefault();
+            var file = $('#fileSelection')[0].files[0];
+            
+            var reader = new FileReader();
+            reader.readAsDataURL(file);
+            
+            var imgString = "";
+            reader.onloadend = function () {
+                
+                imgString = reader.result;
+                $.ajax({
+                    url: '/test',
+                    data: {img: imgString},
+                    method: "POST",
+                    dataType: "application/json",
+                    success: function(data) {
+                        if (data.result == "success") {
+                            $('#imgShow').empty();
+                            $('#imgShow').append("<tr>");
+                            
+                            for (var i = 0; i<data.imgString.length; i++) {
+                                var imgString = data.imgString[i][0]['imgString'];
+                                $('#imgShow').append("<td><img src='"+ imgString + "' style='widtn: 300px'></td>")
+                            }
+                            $('imgShow').append("</tr>");
+                        } else {
+                            $('#imgShow').empty();
+                            $('#imgShow').append("<tr><td>image save failed</td></tr>");
+                        }
+                    }
+                });
+            }
+        });
+    </script>-->
+</body>
+</html>

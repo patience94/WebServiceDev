@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('./partials/head.ejs') %>
+</head>
+<body>
+    <%- include('./partials/nav.ejs') %>
+    <div id="tab-btn">
+        <ul>
+            <li id="nav_tab1" class="nav_tablinks" aria-selected="false"><a href="/">채용 정보</a></li>
+            <li id="nav_tab2" class="nav_tablinks" aria-selected="false"><a href="/masters">마스터 정보</a></li>
+            <li id="nav_tab3" class="nav_tablinks active" aria-selected="true"><a href="/profile">프로필</a></li>
+        </ul>
+    </div>
+    
+    <div id="tab-cont">
+        <div id="nav_tabCont3" class="nav_tabCont">
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link active" id="project-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">프로젝트 / 채용 의뢰건</button>
+                </li> 
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">프로필 / 이력서</button>
+                </li>       
+            </ul>
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                    <div>
+                        <h5 style="font-weight: bold; margin-top: 30px; font-size: 18pt;">의뢰건</h5>
+                    </div>
+                    <div style="display: inline-block; margin-top: 12px;">
+                        <h5 style="font-weight: bold;">3</h5>
+                        <h5 style="font-size: 12pt;">의뢰건</h5>
+                    </div>
+                    <div style="display: inline-block; margin-left: 40px;">
+                        <h5 style="font-weight: bold;">1</h5>
+                        <h5 style="font-size: 12pt;">진행중</h5>
+                    </div>
+                    <div id="main_recommendSection" style="margin-top: 18px;">
+                        <div class="card my-3">
+                            <div class="card-header">
+                                <h5 class="pt-1 float-start"><%=hireInfo[0][0]['companyName']%></h5>
+                            </div>
+                            <div class="card-body">
+                                <h4 id="main_recommendCardTitle" class="card-title"><%=hireInfo[0][0]['businessType']%></h4>
+                                    <div id="main_recommendCardContent">
+                                        <h6 class="main_recommendCardContent"><h6 style="color: #666; display: inline">주소: </h6><%=hireInfo[0][0]['address']%></h6>
+                                        <h6 class="main_recommendCardContent"><h6 style="color: #666; display: inline">직종: </h6><%=hireInfo[0][0]['occupation']%></h6>
+                                        <h6 class="main_recommendCardContent"><h6 style="color: #666; display: inline">급여: <%=hireInfo[0][0]['salary']%> 원</h6>
+                                    </div>
+                                <h6 id="main_recommendCardMsg"> <%=hireInfo[0][0]['task']%></h6>
+                                <button type="submit" id="main_recommendCardButton" class="btn btn-primary" style="width: 100%;"><a href="profile/project_detail/<%=hireInfo[0][0]['id']%>">자세히 보기</a></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                    <div  style="width: 100%; text-align: center">
+                        <img id="profile_masterImg" src="<%=rows[0][0]['imgString']%>" style="width: 120px; border-radius: 10%;">
+                        <h6 id="profile_masterName"><%=rows[0][0]['name']%></h5>
+                    </div>
+                    <div>
+                        <h6 class="profile_profileTitle">개인 정보</h6>
+                        <div>
+                            <h6 class="profile_profileSubTitle">자기 소개</h6>
+                            <h7 class="profile_profileContent"><%=rows[0][0]['introduction']%></h7>
+                        </div> 
+                        <div>
+                            <h6 class="profile_profileSubTitle">전문분야</h6>
+                            <h7 class="profile_profileContent"><%=rows[0][0]['masterField']%></h7>
+                        </div> 
+                        <div>
+                            <h6 class="profile_profileSubTitle">현재 상태</h6>
+                            <h7 class="profile_profileContent"><%=rows[0][0]['currentState']%></h7>
+                        </div> 
+                    </div>
+                    <div>
+                        <h6 class="profile_profileTitle">학력</h6>
+                        <hr>
+                        <div>
+                            <h6 class="profile_profileSubTitle">최종 학력</h6>
+                            <h7 class="profile_profileContent"><%=rows[0][0]['finalEducation']%></h7>
+                        </div> 
+                        <div>
+                            <h6 class="profile_profileSubTitle">자격증</h6>
+                            <h7 class="profile_profileContent"></h7>
+                        </div> 
+                    </div>
+                    <div>
+                        <h6 class="profile_profileTitle">경력</h6>
+                        <hr>
+                        <div>
+                            <h6 class="profile_profileSubTitle">경력 소개</h6>
+                            <h7 class="profile_profileContent"><%=rows[0][0]['careerIntroduction']%></h7>
+                        </div> 
+                        <div>
+                            <h6 class="profile_profileSubTitle">근무 기간</h6>
+                            <h7 class="profile_profileContent"><%=rows[0][0]['careerStart']%> ~ <%=rows[0][0]['careerEnd']%></h7>
+                        </div>
+                    </div>
+                    <div>
+                        <h6 class="profile_profileTitle">비용</h6>
+                        <hr>
+                        <div>
+                            <h6 class="profile_profileSubTitle">시급</h6>
+                            <h7 class="profile_profileContent"><%=rows[0][0]['hourlyWage']%>원</h7>
+                        </div> 
+                        <div>
+                            <h6 class="profile_profileSubTitle">자문 비용</h6>
+                            <h7 class="profile_profileContent"><%=rows[0][0]['advisoryFee']%>원</h7>
+                        </div> 
+                    </div>
+                    <div>
+                        <button style="width: 70%; margin: 50px 15% 24px 15%; border-radius: 100px; float: none;" id="main_recommendCardButton" class="btn btn-primary" onclick = "location.href = '/profile_form'">수정하기</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

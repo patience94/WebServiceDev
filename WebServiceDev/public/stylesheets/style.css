@@ -1,0 +1,221 @@
+/* nav-bar start */
+#navBar {
+  padding: 16px 20px;
+}
+#navBar_container {
+  width: 100%;
+}
+#navbarNavAltMarkup{
+  float: right;
+}
+.navbar-nav a{
+  font-weight: bold;
+  margin: 0px 10px;
+}
+/* nav-bar end */
+
+/* tab start */
+
+
+* {padding: 0; margin: 0;}
+a {text-decoration: none; color: #FFFFFF;}
+li {list-style: none;}
+body { 
+    background-size: cover;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    line-height: 1.6em;
+    -webkit-font-smoothing: antialiased;
+}
+
+h7 {
+  font: 12pt;
+}
+
+#tab-btn ul {
+  overflow: hidden;
+  padding: 0;
+}
+#tab-btn li {
+  float: left; width: 33.3%; text-align: center;
+  padding: 0 5%;
+}
+#tab-btn li a {
+  display: block; color: #6ABABB; 
+  padding: 15px 0px; 
+  font-weight: bold;
+}
+#tab-btn li.active a {
+  border-bottom: 3px solid #6ABABB;
+}
+
+#tab-cont {
+  width: 100%; 
+  background: #fff; padding: 20px; 
+  box-sizing: border-box;
+  border-radius: 0 0 4px 4px;
+  margin-top: 4px; 
+  padding: 5% 10%;
+}
+/* .nav_tabCont {
+  display: none;
+} */
+/* tab end */
+
+/* form start */
+#main_form {
+  width: 100%; 
+  display: block; 
+  margin: 0px auto; 
+  justify-content: center;
+}
+
+.main_searchLabel {
+  display: inline-block; 
+  width: 100%;
+}
+
+.main_searchBox {
+  display: inline-block; 
+  width: 100%;
+}
+
+#main_searchButton {
+  margin: 50px auto 100px auto; 
+  padding: 0px 14%;
+  border-width: 2px; 
+  border-color: #6ABABB; 
+  color: #6ABABB; 
+  border-radius: 30px; 
+  width: 100%; 
+  font-size: large; 
+  font-weight: bold;
+}
+/* form end */
+
+/* recommend start */
+#main_recommendSection {
+  margin: 0px auto; 
+}
+#main_recommendCardTitle {
+  font-weight: bold;
+}
+#main_recommendCardContent {
+  margin-top: 18px;
+}
+.main_recommendCardContent {
+  display: block; 
+}
+#main_recommendCardMsg {
+  display: inline-block; 
+  margin-top: 10px;
+}
+#main_recommendCardButton {
+  float: right; 
+  width: 100%; 
+  background-color: #6ABABB; 
+  border-color: #6ABABB; 
+  color: white; 
+  font-weight: bold; 
+  right: 0;
+  margin-top: 12px;
+}
+/* recommend end */
+/* masters page start */
+/* scroll tab start */
+.masters_scrollTab {
+  margin: 0px auto; 
+  white-space: nowrap;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  -ms-overflow-style: -ms-autohiding-scrollbar;
+}
+.masters_scrollTab::-webkit-scrollbar {
+  display: none;
+}
+.badge rounded-pill bg-secondary {
+  background-color: #6ABABB;
+  font-size: 20pt;
+}
+.masters_scrollTab {
+  margin-bottom: 30px;
+}
+.masters_scrollTab_btn {
+  width: auto;
+  margin-right: 10px;
+  padding: 2px 8px;
+  border-radius: 30px;
+  font-size: 12pt;
+  font-weight: bolder;
+  background-color:#6ABABB;
+  border-color: #6ABABB;
+}
+/* scroll tab end */
+/* masters page end */
+
+.rounded float-start {
+  width: 30px;
+}
+
+.nav_tabCont {
+  margin: 0px auto; 
+}
+
+#profile {
+  justify-content: center;
+}
+
+#profile_masterImg {
+  width: 80px;
+  border-radius: 20%;
+  margin: 30px 102px 0px 102px;
+}
+
+#profile_masterName {
+  margin: 20px auto;
+  padding: 0 34%;
+  font-size: 12pt;
+}
+
+.profile_profileTitle {
+  font-weight: bolder;
+  margin-top: 60px;
+}
+
+.profile_profileSubTitle {
+  margin-top: 30px;
+  color: #666;
+}
+
+.form-label {
+  margin-top: 20px;
+}
+
+textarea {
+  font-size: 12pt;
+}
+
+
+
+hr { 
+  display: block;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  margin-left: auto;
+  margin-right: auto;
+  border-style: inset;
+  border-width: 1px;
+} 
+
+
+#main_searchButton:active {
+  background-color: #6ABABB;
+  color: white;
+  border-color: #6ABABB;
+}
+
+#main_searchButton:focus {
+  background-color: #6ABABB;
+  color: white;
+  border-color: #6ABABB;
+}

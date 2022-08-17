@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('./partials/head.ejs') %>
+</head>
+
+<body>
+    <%- include('./partials/nav.ejs') %>
+    <div id="tab-btn">
+        <ul>
+            <li id="nav_tab1" class="nav_tablinks" aria-selected="false"><a href="/">채용 정보</a></li>
+            <li id="nav_tab2" class="nav_tablinks" aria-selected="false"><a href="/masters">마스터 정보</a></li>
+            <li id="nav_tab3" class="nav_tablinks active" aria-selected="true"><a href="/profile">프로필</a></li>
+        </ul>
+    </div>
+    
+    <div id="tab-cont">
+        <div id="nav_tabCont3" class="nav_tabCont" >
+            <form style="margin-top: 0px;" class="row g-3" id="fileSelectionForm" enctype="multipart/form-data">
+                        <h6 class="profile_profileTitle" style="margin-top: 10px;">개인 정보</h6>
+                        <hr>
+                        <div class="mb-3">
+                            <label for="formFile" class="form-label">사진</label>
+                            <input class="form-control" type="file" id="fileSelection" name="uploaded_image" accept=""/>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">이름</label>
+                            <textarea class="form-control" placeholder="이름" id="name" name="name"></textarea>
+                        </div>
+                        <div class="col-md-6">
+                          <label class="form-label">자기 소개</label>
+                          <textarea class="form-control" placeholder="자기 소개" id="introduction" name="introduction"></textarea>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">전문 분야</label>
+                            <select class="form-select" id="masterField" name="masterField">
+								<option>전문 분야</option>
+								<option>경영/사무</option>
+								<option>영업/고객상담</option>
+								<option>IT/인터넷</option>
+								<option>디자인</option>
+								<option>서비스</option>
+								<option>전문직</option>
+								<option>의료</option>
+								<option>생산/제조</option>
+								<option>건설</option>
+								<option>유통/무역</option>
+								<option>미디어</option>
+								<option>교육</option>
+								<option>특수계층/공공</option>
+								<option>기타</option>
+							</select>
+                        </div>
+        
+
+                        <h6 class="profile_profileTitle">학력</h6>
+                        <hr>
+                        <div class="col-md-6">
+                            <label class="form-label">최종 학력</label>
+                            <select class="form-select" name="finalEducation" id="finalEducation">
+                                <option selected>최종 학력</option>
+                                <option>초졸</option>
+                                <option>중졸</opti2on>
+                                <option>대졸</option>
+                                <option>학사</option>
+                                <option>박사</option>
+                            </select>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <label class="form-label">현재 상태</label>
+                            <select class="form-select" name="currentState" id="currentState">
+                                <option selected>현재 상태</option>
+                                <option>유직</option>
+                                <option>무직</option>
+                            </select>
+                        </div>
+                        <!--<div class="col-md-6">-->
+                        <!--    <label class="form-label">계열</label>-->
+                        <!--    <select id="inputState" class="form-select">-->
+                        <!--        <option selected>계열</option>-->
+                        <!--        <option>문과</option>-->
+                        <!--        <option>이과</option>-->
+                        <!--        <option>예체능</option>-->
+                        <!--    </select>-->
+                        <!--</div>-->
+                        <!--<div class="col-md-6">-->
+                        <!--    <label class="form-label">자격증</label>-->
+                        <!--    <div class="input-group">-->
+                        <!--        <input type="file" class="form-control" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload">-->
+                        <!--        <button class="btn btn-outline-secondary" type="button" id="inputGroupFileAddon04">확인</button>-->
+                        <!--    </div>-->
+                        <!--</div>-->
+
+                        <h6 class="profile_profileTitle">경력</h6>
+                        <hr>
+                        <div class="col-md-6">
+                        <!--  <label class="form-label">회사명</label>-->
+                        <!--  <textarea class="form-control" placeholder="회사명" id="floatingTextarea"></textarea>-->
+                        <!--</div>-->
+                        <div class="col-md-6">
+                            <label class="form-label">경력 소개</label>
+                            <textarea class="form-control" placeholder="경력 소개"  name="careerIntroduction" id="careerIntroduction"></textarea>
+                          </div>
+                        <div class="col-md-6">
+                            <label class="form-label" style="display: block;">경력 기간</label>
+                            <input class="form-control" type="date" name="careerStart" id="careerStart">
+                            <h6 style="margin: 10px auto;">~</h6>
+                            <input class="form-control" type="date" name="careerEnd" id="careerEnd">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">시급</label>
+                            <textarea class="form-control" placeholder="시급" name="hourlyWage" id="hourlyWage"></textarea>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">자문 비용</label>
+                            <textarea class="form-control" placeholder="자문 비용" id="advisoryFee" name="advisoryFee"></textarea>
+                        </div>
+                    <div id="buttons" style="margin: 40px 0;">
+                        <button type="submit" id="main_recommendCardButton" class="btn btn-primary" style="width: 45%; display: inline-block; margin-left: 5%; margin-bottom: 40px;">저장하기</a>
+                        <button id="main_recommendCardButton" class="btn btn-primary" style="width: 45%; display: inline-block;  margin-right: 5%; margin-bottom: 40px;">돌아가기</a>
+                    </div>
+            </form>
+        </div>
+    </div>
+    
+    <script>
+        $('#fileSelectionForm').submit(function (e) {
+            e.preventDefault();
+            file = $('#fileSelection')[0].files[0];
+            
+            var reader = new FileReader();
+            reader.readAsDataURL(file);
+            
+            var name = $('#name').val();
+            var introduction = $('#introduction').val();
+            var masterField = $('#masterField option:selected').text();
+            var currentState = $('#currentState option:selected').text();
+            var finalEducation = $('#finalEducation option:selected').text();
+            var careerIntroduction = $('#careerIntroduction').val();
+            var careerStart = $('#careerStart').val();
+            var careerEnd = $('#careerEnd').val();
+            var hourlyWage = $('#hourlyWage').val();
+            var advisoryFee = $('#advisoryFee').val();
+            
+            var imgString = "";
+            reader.onloadend = function() {
+                imgString = reader.result;
+                // console.log(imgString);
+                
+                $.ajax({
+                    url: '/profile_form',
+                    data: JSON.stringify({"imgString": imgString, "name": name, "introduction": introduction, "masterField": masterField, "currentState": currentState, "finalEducation": finalEducation, "careerIntroduction": careerIntroduction, "careerStart": careerStart, "careerEnd": careerEnd, "hourlyWage": hourlyWage, "advisoryFee": advisoryFee}),
+                    type: 'POST',
+                    contentType: 'application/json',
+                    success: function(data) {
+                        if (data.result == "success") {
+                            console.log(data);
+                            console.log("sucess");
+                            window.location.href = "/profile";
+                        }
+                        // var imgString = data.img;
+                        // console.log(data, name);
+                        // console.log(imgString);
+                        // $('#profile_masterImg').attr('src', imgString);
+                        // $('#profile_masterImg').css('width', '200px');
+                    }
+                })
+            }
+            
+            
+        })
+    </script>
+</body>
+</html>
